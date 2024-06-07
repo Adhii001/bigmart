@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-12 grid-margin stretch-card">
+                <div class="card" style="">
+                    <font color="black">
+                  <div class="card-body">
+                    <h4 class="card-title" style="">EDIT PRODUCT</h4>
+                    <p class="card-description">WELCOME</p>
+                      {% for d in pro %}
+                    <form class="forms-sample" method="post" action="{% url 'update_product' pro_id=d.id %}" enctype="multipart/form-data" >
+                      {% csrf_token %}
+                        <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Product Category</label>
+                                                                <div class="col-sm-10">
+                                                                    <select name="pcat" class="form-control fill">
+                                                                        <option >{{d.pcategory}}</option>
+                                                                        {% endfor %}
+                                                                        {% for i in cat %}
+                                                                        <option value="{{i.cname}}">{{i.cname}}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                            </div><br><br><br>
+
+                      <div class="form-group">
+                          {% for i in pro %}
+                        <label for="exampleInputName1">PRODUCT Name</label>
+                        <input value="{{i.pname}}" type="text" class="form-control" id="exampleInputName1" placeholder="Product Name" name="pname">
+                      </div>
+                         <div class="form-group">
+                        <label for="exampleTextarea1">Product Price</label>
+                        <input value="{{i.pprice}}" type="text" class="form-control" id="exampleInputName1" placeholder="Product Price" name="pprice">
+                      </div>
+                         <div class="form-group">
+                        <label for="exampleTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleTextarea1" rows="4" name="pdescription">{{i.pdescription}}</textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputCity1">IMAGE</label>
+                          <img src="{{i.pimage.url}}" height="150px" width="200">
+                        <input type="file" class="form-control" id="exampleInputCity1" placeholder="Image" name="pimage">
+                      </div>
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-dark">Cancel</button>
+                        {% endfor %}
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+</body>
+</html>
+
+{% endblock %}
